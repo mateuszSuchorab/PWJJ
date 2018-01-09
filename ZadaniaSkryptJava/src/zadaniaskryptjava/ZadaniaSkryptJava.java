@@ -7,6 +7,12 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.util.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.io.*;
+import java.net.*;
 
 public class ZadaniaSkryptJava {
 
@@ -175,12 +181,60 @@ public class ZadaniaSkryptJava {
 
     }
 
+    private static void writeElements(TreeSet collection) {
+        Iterator it = collection.iterator();
+        while (it.hasNext()) {
+            System.out.println((it.next()).toString());
+        }
+    }
+
+    public static void zadanie71(String[] args) {
+
+        String hostName;
+        if (args.length > 0) {
+            hostName = args[0];
+        } else {
+            hostName = "time-b.nist.gov";
+        }
+        try {
+            Socket socket = new Socket(hostName, 37);
+            BufferedReader bufor = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            String text = "";
+            int bit = 1;
+            long secondsSince1900;
+            long[] buffer = new long[33];
+            System.out.println(hostName);
+            while (text != null) {
+                for (int i = 0; i < text.length(); i++) {
+                    buffer[i] = text.charAt(i);
+                }
+                System.out.println("--------------------");
+                for (int i = 0; i < text.length(); i++) {
+                    System.out.println(buffer[i]);
+                }
+                System.out.println("--------------------");
+                text = String.valueOf(bufor.read());
+
+                if (text.startsWith("-1")) {
+                    text = null;
+                }
+                bit++;
+
+            }
+        } catch (UnknownHostException e) {
+            System.err.println(e);
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+    }
+
     public static void main(String[] args) throws FileNotFoundException, IOException {
         //zadanie11();        
         //zadanie12(new BigInteger("10"));
         //zadanie13();
         //zadanie14(100000);
-        /*
+/*
         Rational rational = new Rational(-4,5);
         Rational rational1 = new Rational(4,5);
         System.out.println(rational.compareTo(rational1));
@@ -196,41 +250,35 @@ public class ZadaniaSkryptJava {
         System.out.println(rational.getDenominator());
         System.out.println(rational.getSing());
         System.out.println("");
-        rational =rational.subtraction(rational1);
-         */
- /*
+        rational =rational.subtraction(rational1); 
         System.out.println(rational.toString());
         System.out.println(rational1.toString());
         rational =rational.division(rational1);        
         System.out.println(rational.toString());
-        System.out.println(rational1.toString());
-         */
+        System.out.println(rational1.toString());*/
  /*
-        Polynomial w[] = new Polynomial[3];
+        Polynomial w[] = new Polynomial[3];//wielomian
         w[0] = new LinearFunction(2, 1);
         w[1] = new QuadraticFunction(1, -2, 2);
         w[2] = new QuadraticFunction(1, 0, -1);
         for (int i =0 ; i<3; i++){
         System.out.println(w[i].getZeroOfAFunction());
-        }
-         */
+        }*/
  /* 
         Queue k = new Queue();
         try {
             k.toQueue(new Integer(7));
             k.toQueue(new String("Ala ma kota"));
             k.toQueue(new Double(3.14));
-            k.toQueue(new Double(3.14));
-            
+            k.toQueue(new Double(3.14));   
             for (int i = 1; i <= 5; ++i) {
                 System.out.println((k.fromQueue()).toString());
             }
         } catch (Overflow bd) {
             System.out.println("Przepełniona kolejka!");
-        } catch (Insufficiency bd) {
+        } catch (Insufficiency bd) {//niedomiar
             System.out.println("Pusta kolejka!");
-        }
-         */
+        }*/
  /*
         try {
             Formula wyr = new Formula("(3*((6/3)-1))");
@@ -242,18 +290,89 @@ public class ZadaniaSkryptJava {
             System.out.println("Dzielenie przez zero");
         } catch (IncorrectlyConstructedFormula db) {
             System.out.println("Niepoprawnie skonstruowane wyrażenie");
-        }
-         */
+        }*/
  /*
         TextEditor textEditor = new TextEditor("Marcinek ma dwa kotki"); // UTF- 8 
-        textEditor.saveToFile();
-         */
+        textEditor.saveToFile();*/
  /*
          GzipCompression gzip = new GzipCompression();
          gzip.compress();
-         gzip.decompress();
-         */
+         gzip.decompress();*/
+ /*
+        TreeSet collection = new TreeSet();
+        collection.add(new Coordinate(2, 3));
+        collection.add(new Coordinate(-3, 0));
+        collection.add(new Coordinate(-1, 2));
+        collection.add(new Coordinate(-1, 2));
+        collection.add(new Coordinate(-3, -2));
+        writeElements(collection);*/
+ /*
+        HashMap map = new HashMap();
+        map.put(new Coordinate(2, 3), new String("czerwony"));
+        map.put(new Coordinate(-3, 0), new String("czarny"));
+        map.put(new Coordinate(-1, 2), new String("czerwony"));
+        map.put(new Coordinate(2, -1), new String("czarny"));
+        Coordinate w = new Coordinate(-1, 2);
+        System.out.println("Punkt " + w.toString()
+                + " ma kolor " + map.get(w));*/
+ /*
+        Graph graph = new Graph("4, (0,1), (1,2), (3,0), (1,3)");
+        System.out.println(graph.toString());*/
+ /*
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new NewJFrame().setVisible(true);
+            }
+        });*/
+ /*
+        StatementQueue k = new StatementQueue();
+        MyThread w1 = new MyThread(k, 1);
+        MyThread w2 = new MyThread(k, 2);
+        w1.start();
+        w2.start();
+        try {
+            w1.join();
+            w2.join();
+        } catch (InterruptedException e) {
+        };
+        Object ob = k.collect();
+        while (ob != null) {
+            System.out.println(((Integer) ob).toString());
+
+            ob = k.collect();
+        }
+
+        StatementQueueHashMap kk = new StatementQueueHashMap();
+        MyThreadHashMap wa1 = new MyThreadHashMap(kk, 1);
+        MyThreadHashMap wa2 = new MyThreadHashMap(kk, 2);
+        wa1.start();
+        wa2.start();
+        try {
+            wa1.join();
+            wa2.join();
+        } catch (InterruptedException e) {
+        };
+        HashMap<String, Integer> hm = kk.collect();
+        while (hm != null) {
+            System.out.println(hm.values());
+
+            hm = kk.collect();
+        }*/
+
+        //zadanie71(args);
         
         
+        /*ServerSocket server;
+        try {
+            server = new ServerSocket(9696);
+            while (true) {
+                Socket connection = server.accept();
+                Thread t = new Thread(new Player(connection));
+                t.start();
+            }
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }*/
+        System.out.println("@@@");
     }
 }

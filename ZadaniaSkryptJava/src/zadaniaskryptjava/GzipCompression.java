@@ -31,10 +31,9 @@ public class GzipCompression {
             GZIPInputStream in = new GZIPInputStream(new FileInputStream("fileToGzip.gz"));
             FileOutputStream fout = new FileOutputStream("gzipFile.txt");
             int length;
-            while((length = in.read(buffer)) != -1){
+            while ((length = in.read(buffer)) != -1) {
                 fout.write(buffer, 0, length);
             }
-            //close resources
             fout.close();
             in.close();
         } catch (IOException db) {
